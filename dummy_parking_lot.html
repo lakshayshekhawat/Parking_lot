@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Parking lot System</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+  .table-container{
+    padding: 3rem;
+    text-align: center;
+  }
+  .car_color_container{
+    padding-top:3px;
+  }
+  select{
+    width:70px;
+  }
+  .find_car_container{
+    padding-top:10px;
+  }
+  .find_car_container button{
+    margin-left:20px;
+  }
+  #reset_button{
+    float:right;
+  }
+  .main_container{
+    display:none;
+  }
+  .initial_car_input{
+    display: block;
+  }
+  .search_car_form{
+    padding-top: 8px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  .submit_button_container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-top:20px;
+  }
+  .find_car_registration{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .entry_form{
+    padding-left:0px;
+    padding-right: 0px;
+  }
+  .search_car_heading{
+    padding-left:0px;
+    padding-right:0px;
+  }
+  .add_car_container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .modal-content{
+    height: 352px;
+    background: white;
+  }
+  .find_car_color{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .initial_car_input{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 6rem;
+  }
+</style>
+</head>
+<body>
+  <div class="col-md-12 initial_car_input">
+    <form id="initial_car_input">
+      <label>How many cars would you like to park initially?</label>
+      <input type="number" required id="car_no" min="1" max="100"></input>
+      <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+  </div>
+  <div class="main_container col-md-12">
+    <div class="button_container col-md-12">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add/Search Car</button>
+      <button id="reset_button" type="button" class="btn btn-primary">Reset</button>
+    </div>
+    <div class="table-container col-md-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <td>Slot No.</td>
+            <td>Resgistration No.</td>
+            <td>Car Color</td>
+            <td>Action</td>
+          </tr>
+        </thead>
+        <tbody id ="table_body">
+          <!-- <tr>
+          <td><span>i</span></td>
+          <td><span>RJ-01-7751</span></td>
+          <td><span>Black</span></td>
+          <td><button type="button" class="btn btn-danger">Delete</button></td>
+        </tr> -->
+      </tbody>
+    </table>
+  </div>
+  <!-- Modal -->
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header col-md-12">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add/Search Car</h4>
+        </div>
+        <div class="modal-body col-md-12">
+          <div class="entry_form col-md-12">
+            <h4>Add Cars</h4>
+            <form id="car_entry">
+              <div class="col-md-12 add_car_container">
+                <div class="registration_no_input">
+                  <label for="registeration_no.">Registration No. : </label>
+                  <input id="registration_input"type ="text" required pattern="[A-Z]{2}.*[0-9]{2}.*[A-Z]{2}.*[0-9]{4}"></intput>
+                </div>
+                <div class="car_color_container">
+                  <label for="car_color">Car Color:</label>
+                  <select id="car_color">
+                    <option value="black">Black</option>
+                    <option value="red">Red</option>
+                    <option value="white">White</option>
+                    <option value="blue">Blue</option>
+                  </select>
+                </div>
+                <div class="button_container_submit">
+                  <button type="submit" form="car_entry" class="btn btn-primary">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class=" col-md-12 search_car_form">
+            <h4>Search Car</h4>
+            <div class="col-md-12" style="padding-left:0px;padding-right:0px;">
+              <div class="col-md-12 search_car_heading">
+              </div>
+              <form id="car_search">
+                <div class="col-md-12 find_car_registration">
+                  <div>
+                    <label for="registration_no">Registration no. :</label>
+                    <input type="text" required></input>
+                  </div>
+                  <div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                  </div>
+                </div>
+              </form>
+              <div class="col-md-12 find_car_container">
+                <form>
+                  <div class="find_car_color">
+                    <div>
+                      <label>Car color:</label>
+                      <select id="car_color_check">
+                        <option value="Black">Black</option>
+                        <option value="Red">Red</option>
+                        <option value="White">White</option>
+                        <option value="Blue">Blue</option>
+                      </select>
+                    </div>
+                    <div>
+                      <button type="button" id="car_color_search" class="btn btn-primary">Search</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer col-md-12">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" id="hide_modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+window.onload = function(){
+  document.getElementById('initial_car_input').addEventListener('submit',add_rows);
+  submit_entry();
+  document.getElementById('car_search').addEventListener('submit',car_search);
+  document.getElementById('car_color_search').addEventListener('click',car_color_search);
+  document.getElementById('reset_button').addEventListener('click',show_previous_state);
+};
+var row_count = 0;
+var show_previous_state = function(){
+  var table_row = document.querySelectorAll('#table_body tr');
+  for(var i=0;i<table_row.length;i++){
+    table_row[i].style.display = "table-row";
+  }
+}
+var car_color_search = function(){
+  event.preventDefault();
+  var car_color_to_search =document.getElementById('car_color_check').value;
+
+  var table_row = document.querySelectorAll('#table_body tr');
+  for (var i = 0;i<table_row.length;i++){
+    if(table_row[i].childNodes[2].innerHTML != car_color_to_search){
+      table_row[i].style.display = "none";
+    }
+  }
+  document.getElementById('hide_modal').click();
+}
+
+var car_search = function(){
+  event.preventDefault();
+  var car_to_search = document.getElementById('car_search').childNodes[3].value;
+
+  var table_row = document.querySelectorAll('#table_body tr');
+  for (var i = 0;i<table_row.length;i++){
+
+    if(table_row[i].childNodes[1].innerHTML != car_to_search){
+      table_row[i].style.display = "none";
+    }
+  }
+  document.getElementById('hide_modal').click();
+}
+
+var add_rows = function(){
+  event.preventDefault();
+  var parent = document.getElementById('table_body');
+  for( i=1;i<=document.getElementById('car_no').value;i++){
+
+    var table_row = document.createElement('tr');
+    table_row.setAttribute('row_no',i);
+    table_row.setAttribute('is_empty',true);
+
+    var slot_no = document.createElement('td');
+    var slot_no_span = document.createElement('span');
+    var slot_no_span_input = document.createTextNode(i);
+
+    slot_no_span.appendChild(slot_no_span_input);
+    slot_no.appendChild(slot_no_span);
+    table_row.appendChild(slot_no);
+
+    var registration_no = document.createElement('td');
+    var registration_no_span = document.createElement('span');
+
+    registration_no.appendChild(registration_no_span);
+    table_row.appendChild(registration_no);
+
+    var color_info = document.createElement('td');
+    var color_info_span = document.createElement('span');
+
+    color_info.appendChild(color_info_span);
+    table_row.appendChild(color_info);
+
+    var action = document.createElement('td');
+    var action_button = document.createElement('button');
+    action_button.addEventListener('click',delete_row);
+    action_button.classList.add('btn');
+    action_button.classList.add('btn-danger');
+    action_button.type = "button";
+    var action_button_text = document.createTextNode('Delete');
+
+    action_button.appendChild(action_button_text);
+    action.appendChild(action_button);
+    table_row.appendChild(action);
+    parent.appendChild(table_row);
+    row_count++;
+
+  };
+  document.getElementsByClassName('main_container')[0].style.display = "block";
+  document.getElementsByClassName('initial_car_input')[0].style.display = "none";
+
+  var rows_to_show = document.querySelectorAll('tbody tr');
+  for(i=0;i<document.getElementById('car_no').value;i++){
+    rows_to_show[i].querySelectorAll('td')[1].innerHTML= generate_vehicle_registration_no();
+    rows_to_show[i].setAttribute('is_empty',false);
+    rows_to_show[i].querySelectorAll('td')[2].innerHTML = generate_colors();
+  };
+
+};
+var generate_vehicle_registration_no = function(){
+  var text_one = "";
+  var text_two = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  for (var i = 0; i < 2; i++){
+    text_one += possible.charAt(Math.floor(Math.random() * possible.length));
+    text_two += possible.charAt(Math.floor(Math.random() * possible.length));
+
+  }
+
+  var x = Math.floor((Math.random()*99)+10);
+  var y = Math.floor((Math.random()*9999)+1000);
+  var registration_no = text_one+"-"+x+"-"+text_two+"-"+y;
+
+  return registration_no;
+};
+var generate_colors = function(){
+  var total_color = ['Black','Red','Blue','White'];
+  var color = total_color[Math.floor(Math.random()*total_color.length)];
+  return color;
+};
+var delete_row=function(){
+  var row_to_delete = event.target.parentNode.parentNode;
+  row_to_delete.querySelectorAll('td')[1].innerHTML="";
+  row_to_delete.querySelectorAll('td')[2].innerHTML="";
+  row_to_delete.setAttribute('is_empty',true);
+};
+
+var submit_entry = function(){
+  document.getElementById('car_entry').addEventListener('submit',add_new_car);
+
+};
+var add_new_car = function(){
+  if(row_count>100){
+    alert('Parking lot is full');
+  }
+  else{
+    row_count++;
+    var parent = document.getElementById('table_body');
+
+    var table_row = document.createElement('tr');
+    table_row.setAttribute('row_no',row_count);
+    table_row.setAttribute('is_empty',true);
+
+    var slot_no = document.createElement('td');
+    var slot_no_span = document.createElement('span');
+    var slot_no_span_input = document.createTextNode(row_count);
+
+    slot_no_span.appendChild(slot_no_span_input);
+    slot_no.appendChild(slot_no_span);
+    table_row.appendChild(slot_no);
+
+    var registration_no = document.createElement('td');
+    var registration_no_span = document.createElement('span');
+
+    registration_no.appendChild(registration_no_span);
+    table_row.appendChild(registration_no);
+
+    var color_info = document.createElement('td');
+    var color_info_span = document.createElement('span');
+
+    color_info.appendChild(color_info_span);
+    table_row.appendChild(color_info);
+
+    var action = document.createElement('td');
+    var action_button = document.createElement('button');
+    action_button.addEventListener('click',delete_row);
+    action_button.classList.add('btn');
+    action_button.classList.add('btn-danger');
+    action_button.type = "button";
+    var action_button_text = document.createTextNode('Delete');
+
+    action_button.appendChild(action_button_text);
+    action.appendChild(action_button);
+    table_row.appendChild(action);
+    parent.appendChild(table_row);
+  }
+
+  event.preventDefault();
+  var registration_input = document.getElementById('registration_input').value;
+  var car_color = document.getElementById('car_color').value;
+  var tr_array = document.querySelectorAll('table tbody tr[is_empty="true"]')[0];
+
+  tr_array.querySelectorAll('td')[1].innerHTML = registration_input;
+  tr_array.querySelectorAll('td')[2].innerHTML = car_color;
+
+  document.getElementById('hide_modal').click();
+
+};
+
+</script>
+</body>
+</html>
